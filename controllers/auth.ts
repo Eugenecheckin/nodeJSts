@@ -1,9 +1,9 @@
 import { Request, Handler } from "express";
 
 import hash from '../utils/hash';
-import getToken from '../utils/getToken.ts';
+import getToken from '../utils/getToken';
 
-import db from '../models/index.ts';
+import db from '../models/index';
 
 interface IBody{
   fullName: string,
