@@ -5,7 +5,11 @@ import db from '../models/';
 import hash from '../utils/hash';
 import getToken from '../utils/getToken.js';
 
-export  const update: Handler = async ( request: Request, response ) => {
+interface IUpdateBody{
+  fullName: string,
+  userEmail: string
+}
+export  const update: Handler = async ( request: Request<unknown, unknown, IUpdateBody>, response ) => {
 
     const { fullName, userEmail } = request.body;
     const { email , isAdmin } = request.headers;   
@@ -35,8 +39,10 @@ export  const update: Handler = async ( request: Request, response ) => {
       return response.status(403).json( { message: "Ошибка обновления данных пользователя", err: err.message } )
     }
   }   
-  
-export  const destroy: Handler = async ( request, response ) => {
+interface IDestroyBody {
+  userEmail: string;
+}  
+export  const destroy: Handler = async ( request: Request<unknown, unknown, IDestroyBody>, response ) => {
     const { isAdmin , email } = request.headers;
     if ( isAdmin === 'true' ) {
       const { userEmail } = request.body;
@@ -56,8 +62,14 @@ export  const getList: Handler = async ( request, response ) => {
       return response.status(403).json( { message: "Ошибка получения списка пользователей", err: err.message } )
     }     
   }
-
-export  const create: Handler = async ( request, response ) => {
+interface ICreateBody {
+  fullName: string,
+  newEmail: string,
+  password: string,
+  dob: string,
+  isAdmin: boolean
+}
+export  const create: Handler = async ( request: Request<unknown, unknown, ICreateBody>, response ) => {
     const { fullName, newEmail, password, dob, isAdmin } = request.body;
     const isRegistred = await db.User.findAll( { where: { email: newEmail } } );  
     if ( isRegistred.length > 0 ) {

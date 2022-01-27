@@ -1,14 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import authRoute from './routes/auth';
-import userRoute from './routes/user';
+import { authRouter } from './routes/auth';
+import { userRouter } from './routes/user';
 
-export const app = express();
+const app = express();
 
 const jsonParser = bodyParser.json();
 app.use(jsonParser);
 
-app.use('/Auth', authRoute);
-app.use('/User', userRoute);
+app.use('/Auth', authRouter);
+app.use('/User', userRouter);
 
+export default app
