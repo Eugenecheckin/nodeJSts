@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 import { SECRET } from '../config';
 
 import { Request, Handler } from "express";

@@ -1,7 +1,7 @@
-const CryptoJS = require("crypto-js");
-const { HASH_MESS } = require('../config')
+import CryptoJS from "crypto-js";
+import { HASH_MESS } from '../config';
 
-const hash = ( password ) => {
+const hash = ( password: string ) => {
   return CryptoJS.AES.encrypt(HASH_MESS, password).toString();
 }
 
