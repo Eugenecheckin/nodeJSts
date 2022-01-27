@@ -12,7 +12,7 @@ interface IBody{
   dob: string,
   isAdmin: boolean
 }
-const sinUp: Handler = async ( request: Request<unknown, unknown, IBody>, response ) => {
+export const sinUp: Handler = async ( request: Request<unknown, unknown, IBody>, response ) => {
   const { fullName, email, password, dob, isAdmin } = request.body;
   const isRegistred = await db.User.findAll( { where: { email } } );  
   if ( isRegistred.length > 0 ) {
@@ -35,7 +35,7 @@ const sinUp: Handler = async ( request: Request<unknown, unknown, IBody>, respon
   }    
 }
 
-const login:  Handler = async ( request, response ) => {
+export const login:  Handler = async ( request, response ) => {
   const { email } = request.headers;
   try {    
     const allUsers = await db.User.findOne( { where: { email } } );
@@ -51,4 +51,3 @@ const login:  Handler = async ( request, response ) => {
   }    
 }
 
-module.exports = { sinUp, login };

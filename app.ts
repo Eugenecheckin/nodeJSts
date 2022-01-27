@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser')
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const authRoute = require('./routes/auth.ts');
-const userRoute = require('./routes/user.ts');
+import authRoute from './routes/auth';
+import userRoute from './routes/user';
 
-const app = express();
+export const app = express();
 
 const jsonParser = bodyParser.json();
 app.use(jsonParser);
@@ -12,4 +12,3 @@ app.use(jsonParser);
 app.use('/Auth', authRoute);
 app.use('/User', userRoute);
 
-module.exports = app;

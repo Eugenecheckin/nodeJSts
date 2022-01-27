@@ -1,6 +1,6 @@
-const application = require('./app.ts');
-const { PORT } = require('./config')
+import { app } from './app';
+import { PORT } from './config';
 
-application.listen(PORT, ()=> {
+app.listen(PORT, ()=> {
   console.log('сервер запущен')
 });

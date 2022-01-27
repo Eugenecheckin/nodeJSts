@@ -1,8 +1,8 @@
-const Router = require('express');
+import Router from 'express';
 
-const { update, destroy, getList, create } = require('../controllers/user');
-const isOwner = require('../middleware/Owner');
-const isAdmin = require('../middleware/Admin');
+import { update, destroy, getList, create } from '../controllers/user';
+import isOwner from '../middleware/Owner';
+import isAdmin from '../middleware/Admin';
 
 const userRouter = Router();
 

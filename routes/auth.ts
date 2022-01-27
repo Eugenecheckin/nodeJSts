@@ -1,7 +1,7 @@
-const Router = require('express');
+import Router from 'express';
 
-const { sinUp, login } = require('../controllers/auth');
-const isOwner = require('../middleware/Owner');
+import { sinUp, login } from '../controllers/auth';
+import isOwner from '../middleware/Owner';
 
 const authRouter = Router();
 

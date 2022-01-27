@@ -1,5 +1,3 @@
-module.exports = {
-  HASH_MESS: 'testHassMess', 
-  SECRET: 'testSecret',
-  PORT: 3000
-}
+export const  HASH_MESS: string = 'testHassMess'; 
+export const  SECRET: string = 'testSecret';
+export const  PORT: number =  3000;

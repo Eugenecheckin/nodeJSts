@@ -5,7 +5,7 @@ import db from '../models/';
 import hash from '../utils/hash';
 import getToken from '../utils/getToken.js';
 
-  const update: Handler = async ( request: Request, response ) => {
+export  const update: Handler = async ( request: Request, response ) => {
 
     const { fullName, userEmail } = request.body;
     const { email , isAdmin } = request.headers;   
@@ -36,7 +36,7 @@ import getToken from '../utils/getToken.js';
     }
   }   
   
-  const destroy: Handler = async ( request, response ) => {
+export  const destroy: Handler = async ( request, response ) => {
     const { isAdmin , email } = request.headers;
     if ( isAdmin === 'true' ) {
       const { userEmail } = request.body;
@@ -47,7 +47,7 @@ import getToken from '../utils/getToken.js';
     response.status(200).json( { message: "Пользователь удален", email } )    
   }
 
-  const getList = async ( request, response ) => {
+export  const getList: Handler = async ( request, response ) => {
     try { 
       const users =await db.User.findAll();
       response.status(200).json(users);
@@ -57,7 +57,7 @@ import getToken from '../utils/getToken.js';
     }     
   }
 
-  const create = async ( request, response ) => {
+export  const create: Handler = async ( request, response ) => {
     const { fullName, newEmail, password, dob, isAdmin } = request.body;
     const isRegistred = await db.User.findAll( { where: { email: newEmail } } );  
     if ( isRegistred.length > 0 ) {
@@ -80,4 +80,3 @@ import getToken from '../utils/getToken.js';
     }      
   }
 
-module.exports = { update, destroy, create, getList };
