@@ -14,8 +14,8 @@ interface ISignUpBody{
 }
 export const sinUp: Handler = async ( request: Request<unknown, unknown, ISignUpBody>, response ) => {
   const { fullName, email, password, dob, isAdmin } = request.body;
-  const isRegistred  = await db.User.findAll( { where: { email } } );  
-  if ( isRegistred.length > 0 ) {
+  const usersRegistred  = await db.User.findAll( { where: { email } } );  
+  if ( usersRegistred.length > 0 ) {
     return response.status(400).json( {message: "Пользователь с таким именем уже зарегистрирован"} )
   }  
   const hasPassword = hash(password);
