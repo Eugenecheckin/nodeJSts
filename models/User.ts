@@ -1,60 +1,64 @@
-'use strict';
+`./src/models/user-model.ts`
+import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
-import { Model, } from 'sequelize';
+export interface UserAttributes {
+    id: number;
+    fullName: string;    
+    email: string;
+    password: string;
+    dob: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    isAdmin: boolean;
+}
+export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export class User extends Model<UserModel, UserAttributes> {}
 
-export default (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    /* static associate(models) {
-      // define association here
-    } */
-  }
-  User.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    fullName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: /^(\w+([\.-]?\w+)*@\w+([\.-]?\w+)*\.\w{2,4})$/i
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    dob: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    isAdmin: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
-  return User;
+export type UserStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): UserModel;
 };
+
+export function UserFactory (sequelize: Sequelize): UserStatic {
+    return <UserStatic>sequelize.define("users", {
+        id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },        
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        email: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          validate: {
+            is: /^(\w+([\.-]?\w+)*@\w+([\.-]?\w+)*\.\w{2,4})$/i
+          }
+        },
+        password: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        dob: {
+          type: DataTypes.DATE,
+          allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
+        isAdmin: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false,
+          allowNull: false
+        },
+    });
+}

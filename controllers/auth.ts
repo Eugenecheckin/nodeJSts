@@ -3,18 +3,18 @@ import { Request, Handler } from "express";
 import hash from '../utils/hash';
 import getToken from '../utils/getToken';
 
-import db from '../models/index';
+import db from '../models/';
 
-interface IBody{
+interface ISignUpBody{
   fullName: string,
   email: string,
   password: string,
   dob: string,
   isAdmin: boolean
 }
-export const sinUp: Handler = async ( request: Request<unknown, unknown, IBody>, response ) => {
+export const sinUp: Handler = async ( request: Request<unknown, unknown, ISignUpBody>, response ) => {
   const { fullName, email, password, dob, isAdmin } = request.body;
-  const isRegistred = await db.User.findAll( { where: { email } } );  
+  const isRegistred  = await db.User.findAll( { where: { email } } );  
   if ( isRegistred.length > 0 ) {
     return response.status(400).json( {message: "Пользователь с таким именем уже зарегистрирован"} )
   }  
