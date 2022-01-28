@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 import { User }  from './User'
 const db: {
-  [key: string]: User
+  [key: string]: User | Sequelize | typeof Sequelize,
 } = {};
 
 let sequelize: Sequelize;
@@ -28,11 +28,11 @@ fs
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
+/* Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
-});
+}); */
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
